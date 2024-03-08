@@ -1,0 +1,11 @@
+import { googleImage } from '@bochilteam/scraper'
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+if (!text) throw `Use example ${usedPrefix + command} Minecraft`
+const res = await googleImage(text)
+let image = res.getRandom()
+let link = image
+conn.sendFile(m.chat, link, 'gimage.jpg', `Result from : `+ text, m)
+}
+handler.help = ['image']
+handler.command = /^(image)$/i
+export default handler
