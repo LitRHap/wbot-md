@@ -30,10 +30,10 @@ let handler = async (m, { conn, args }) => {
 	let type = isDoc ? 'document' : 'audio'
 	let image = (await conn.getFile(thumbnail)).data
 	let jpegThumbnail = isDoc ? image : Buffer.alloc(0)
-	let url = `https://popcat.xyz/download?url=${args[0]}&filter=audio&filename=temp`
+	let audio = await ytmp3(args[0])
 	
 	let msg = await conn.sendMessage(m.chat, {
-		[type]: { url },
+		[type]: audio,
 		jpegThumbnail,
 		fileName: `${title}.mp3`,
 		mimetype: 'audio/mpeg',
@@ -46,3 +46,15 @@ handler.tags = ['downloader']
 handler.command = /^yt(a|mp3)$/i
 
 export default handler
+
+export const ytmp3 = (url) => new Promise(async (resolve, reject) => {
+	const stream = ytdl(url, { filter: 'audioonly', quality: 140 })
+	const chunks = []
+	stream.on('data', (chunk) =>
+		chunks.push(chunk)
+	)
+	stream.on('end', () =>
+		resolve(Buffer.concat(chunks))
+	)
+	stream.on('error', reject)
+})
