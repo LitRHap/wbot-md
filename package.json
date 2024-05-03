@@ -48,7 +48,7 @@
         "async-g-i-s": "^1.0.0",
         "awesome-phonenumber": "^2.68.0",
         "axios": "^0.24.0",
-        "baileys": "^6.0.9",
+        "baileys":"npm:@whiskeysockets/baileys"
         "booru": "^2.5.6",
         "brainly-scraper-v2": "^2.0.9",
         "caliph-api": "^0.8.6",
