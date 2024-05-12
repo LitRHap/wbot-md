@@ -1,6 +1,6 @@
 import P from 'pino'
 import readline from 'readline'
-import { useMultiFileAuthState, makeWASocket } from '@whiskeysockets/baileys'
+import { useMultiFileAuthState, makeWASocket } from 'baileys'
 
 const rl = readline.createInterface(process.stdin, process.stdout)
 const question = (text) => new Promise((resolve) => rl.question(text, resolve))
